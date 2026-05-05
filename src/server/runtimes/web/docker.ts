@@ -29,7 +29,7 @@ export const webDockerComposeFile = (
 
   const service: any = {
     build: {
-      context: process.cwd(),
+      context: '..',
       dockerfile: config.runtimes[container_name]?.dockerfile
     },
     container_name,
@@ -41,7 +41,7 @@ export const webDockerComposeFile = (
     working_dir: "/workspace",
     volumes: [
       ...config.volumes,
-      `${process.cwd()}/testeranto:/workspace/testeranto`,
+      `../testeranto:/workspace/testeranto`,
     ],
     command: webBuildCommand(
       projectConfigPath,
@@ -82,7 +82,7 @@ export const webBuildCommand = (
   slice: IConfigSlice,
 ) => {
   const configJson = JSON.stringify(slice);
-  return `yarn tsx /workspace/testeranto/web_runtime.ts /workspace/${projectConfigPath} /workspace/${webConfigPath} '${configJson}'`;
+  return `bun /workspace/testeranto/web_runtime.ts /workspace/${projectConfigPath} /workspace/${webConfigPath} '${configJson}'`;
 };
 
 export const webBddCommand = (
@@ -101,7 +101,7 @@ export const webBddCommand = (
     fs: `testeranto/reports/${configKey}/${originalPath}/`,
   });
 
-  const command = `yarn tsx /workspace/testeranto/web_hoist.ts testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`
+  const command = `bun /workspace/testeranto/web_hoist.ts testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`
   // console.log(`[SERVER.DOCKER.WEB] ${configKey} ${containerName} ${command}`)
   // ESBUILD_HOST is now set via environment in the Docker Compose service configuration
   return command;
@@ -125,7 +125,7 @@ export const webBuildKitBuild = async (
     configKey,
     dockerfilePath: runtimeConfig.dockerfile,
     buildContext: process.cwd(),
-    cacheMounts: ["/root/.npm", "/usr/local/share/.cache/yarn"],
+    cacheMounts: ["/root/.bun"],
     targetStage: buildKitConfig.targetStage, // Don't default to 'runtime'
     buildArgs: {
       NODE_ENV: "production",

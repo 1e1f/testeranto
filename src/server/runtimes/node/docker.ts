@@ -29,7 +29,7 @@ export const nodeDockerComposeFile = (
   // For node builder service, we need a proper build configuration
   const service: any = {
     build: {
-      context: process.cwd(),
+      context: '..',
       dockerfile:
         config.runtimes[container_name]?.dockerfile ||
         "testeranto/runtimes/node/node.Dockerfile",
@@ -41,9 +41,9 @@ export const nodeDockerComposeFile = (
     },
     working_dir: "/workspace",
     volumes: [
-      `${process.cwd()}/src:/workspace/src`,
-      `${process.cwd()}/dist:/workspace/dist`,
-      `${process.cwd()}/testeranto:/workspace/testeranto`,
+      `../src:/workspace/src`,
+      `../dist:/workspace/dist`,
+      `../testeranto:/workspace/testeranto`,
       // Note: node_modules is NOT mounted to avoid platform incompatibility
     ],
     command: nodeBuildCommand(
@@ -63,7 +63,7 @@ export const nodeBuildCommand = (
   configSlice: IConfigSlice,
 ) => {
   const configJson = JSON.stringify(configSlice);
-  return `yarn tsx /workspace/testeranto/node_runtime.ts /workspace/${projectConfigPath} /workspace/${nodeConfigPath} '${configJson}'`;
+  return `bun /workspace/testeranto/node_runtime.ts /workspace/${projectConfigPath} /workspace/${nodeConfigPath} '${configJson}'`;
 };
 
 export { nodeBddCommand } from "./utils/nodeBddCommand";
@@ -86,7 +86,7 @@ export const nodeBuildKitBuild = async (
     configKey,
     dockerfilePath: runtimeConfig.dockerfile,
     buildContext: process.cwd(),
-    cacheMounts: ["/root/.npm", "/usr/local/share/.cache/yarn"],
+    cacheMounts: ["/root/.bun"],
     targetStage: buildKitConfig.targetStage, // Don't default to 'runtime'
     buildArgs: {
       NODE_ENV: "production",
@@ -103,8 +103,8 @@ export const nodeBuildKitBuild = async (
       `[Node BuildKit] Successfully built image in ${result.duration}ms`,
     );
   } else {
-    console.error(`[Node BuildKit] Build failed: ${result.error}`);
-    throw new Error(`BuildKit build failed: ${result.error}`);
+    console.error(`[Node BuildKit] Build failed:\n${result.logs}`);
+    throw new Error(`BuildKit build failed for ${configKey}:\n${result.logs}`);
   }
 };
 

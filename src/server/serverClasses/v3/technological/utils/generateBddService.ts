@@ -37,8 +37,8 @@ export const generateBddService = (
   });
 
   const commandMap: Record<string, string> = {
-    node: `yarn tsx testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`,
-    web: `yarn tsx /workspace/testeranto/web_hoist.ts testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`,
+    node: `bun testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`,
+    web: `bun /workspace/testeranto/web_hoist.ts testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`,
     ruby: `ruby testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`,
     golang: `./testeranto/bundles/${configKey}/${fpath.replace(/\.go$/, '').replace(/\./g, '_')} '${jsonStr}'`,
     rust: `./testeranto/bundles/${configKey}/${fpath.replace(/\//g, '_').replace(/\./g, '_').replace(/[^a-zA-Z0-9_]/g, '')} '${jsonStr}'`,
@@ -51,16 +51,16 @@ export const generateBddService = (
 
   const serviceConfig: any = {
     build: {
-      context: process.cwd(),
+      context: '..',
       dockerfile: `testeranto/runtimes/${runtime}/${runtime}.Dockerfile`,
     },
     container_name: `${configKey}-${cleanTestName}-bdd`,
     working_dir: '/workspace',
     volumes: [
-      `${process.cwd()}/src:/workspace/src`,
-      `${process.cwd()}/test:/workspace/test`,
-      `${process.cwd()}/SOUL.md:/workspace/SOUL.md`,
-      `${process.cwd()}/testeranto:/workspace/testeranto`,
+      `../src:/workspace/src`,
+      `../test:/workspace/test`,
+      `../SOUL.md:/workspace/SOUL.md`,
+      `../testeranto:/workspace/testeranto`,
     ],
     command: command,
     networks: ['allTests_network'],

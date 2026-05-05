@@ -142,7 +142,7 @@ export class Server_DockerCompose extends Server_Api {
     if (result.success) {
       this.logBusinessMessage(`✅ Built image ${imageName} with BuildKit in ${result.duration}ms`);
     } else {
-      throw new Error(`BuildKit build failed for ${imageName}: ${result.error}`);
+      throw new Error(`BuildKit build failed for ${imageName}:\n${result.logs}`);
     }
   }
 

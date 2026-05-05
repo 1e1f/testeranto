@@ -23,7 +23,7 @@ export const generateCheckService = (
       `${process.cwd()}/SOUL.md:/workspace/SOUL.md`,
       `${process.cwd()}/testeranto:/workspace/testeranto`,
     ],
-    command: `yarn tsx testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.mjs '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
+    command: `bun testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.mjs '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
     networks: ['allTests_network'],
     restart: 'no',
     extra_hosts: {

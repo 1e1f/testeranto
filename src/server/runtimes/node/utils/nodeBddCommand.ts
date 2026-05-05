@@ -9,5 +9,5 @@ export const nodeBddCommand = (
     ports: [1111],
     fs: `testeranto/reports/${configKey}/${originalPath}/`,
   });
-  return `yarn tsx testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`;
+  return `bun testeranto/bundles/${configKey}/${fpath} '${jsonStr}'`;
 };

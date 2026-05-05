@@ -143,7 +143,18 @@ export class Server_CommandLine extends Server_FS {
     buildContext: string,
     dockerfilePath: string,
   ): Promise<{ stdout: NodeJS.ReadableStream; stderr: NodeJS.ReadableStream }> {
-    const { spawn } = await import('child_process');
+    const { spawn, execSync } = await import('child_process');
+
+    try {
+      execSync('docker info', { stdio: 'ignore' });
+    } catch {
+      throw new Error(
+        'Docker is not available. Make sure Docker Desktop is running and `docker` is in your PATH.\n' +
+        'If Docker is installed but not found, add it to your PATH:\n' +
+        '  export PATH="/usr/local/bin:$PATH"'
+      );
+    }
+
     const child = spawn('docker', [
       'build',
       '-f', dockerfilePath,

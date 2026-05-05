@@ -8,8 +8,8 @@ export const generateBuilderService = (
   const outputsJson = JSON.stringify(configValue.outputs || []);
 
   const commandMap: Record<string, string> = {
-    node: `yarn tsx /workspace/testeranto/node_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/node/node.mjs '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
-    web: `yarn tsx /workspace/testeranto/web_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/web/web.mjs '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
+    node: `bun /workspace/testeranto/node_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/node/node.mjs '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
+    web: `bun /workspace/testeranto/web_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/web/web.mjs '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
     ruby: `ruby /workspace/testeranto/ruby_runtime.rb /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/ruby/ruby.rb '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
     golang: `go run /workspace/testeranto/golang_runtime.go /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/golang/golang.mjs '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
     rust: `cargo run --manifest-path /workspace/testeranto/rust_builder/Cargo.toml -- /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/rust/rust.mjs '{"name":"${configKey}","tests":${testsJson},"outputs":${outputsJson}}'`,
@@ -28,9 +28,9 @@ export const generateBuilderService = (
     },
     working_dir: '/workspace',
     volumes: [
-      `${process.cwd()}/src:/workspace/src`,
-      `${process.cwd()}/dist:/workspace/dist`,
-      `${process.cwd()}/testeranto:/workspace/testeranto`,
+      `../src:/workspace/src`,
+      `../dist:/workspace/dist`,
+      `../testeranto:/workspace/testeranto`,
     ],
     command,
     networks: ['allTests_network'],

@@ -165,28 +165,28 @@
     "Other"
   ],
   "scripts": {
+    "build:runtimes": "node bundle.js",
+    "build:cli": "bun build ./src/index.ts --compile --outfile ./dist/testeranto && bun link",
+    "build:ext": "npx vsce package",
+    "build": "bun run build:runtimes && bun run build:cli",
+
+    "init": "bun src/index.ts init",
+    "dev": "bun src/index.ts dev",
+    "once": "bun src/index.ts once",
+
+    "start": "bun run build && bun run init && bun run dev",
+    "start:ext": "bun run build:ext && bun run start",
+
+    "launch:extension": "code --extensionDevelopmentPath=\"$PWD\"",
+
+    "vscode:prepublish": "bun run build:runtimes",
+    "prepublish": "self-import",
+
     "storybook": "rakonto --dev",
     "build-storybook": "rakonto",
-    "dev4": "yarn dev2 && testeranto init && testeranto dev",
-    "dev3": "yarn package:vsce && yarn dev2 && testeranto init && testeranto dev",
-    "serve": "testeranto dev",
-    "dev2": "yarn bundle && bun build ./src/index.ts --compile --outfile ./dist/testeranto && bun link",
-    "dev": "yarn build:server && yarn link:server",
-    "summarizeLicenses": "yarn licenses list > ALL_LICENSES.txt; yarn license-checker >> ALL_LICENSES.txt; yarn license-checker --summary >> ALL_LICENSES.txt",
+    "summarizeLicenses": "bunx license-checker > ALL_LICENSES.txt; bunx license-checker --summary >> ALL_LICENSES.txt",
     "compile-docs": "node scripts/compile-docs.js",
-    "prepublish": "self-import",
-    "vscode:prepublish": "yarn run bundle",
-    "compile": "yarn run bundle",
-    "watch": "yarn run bundle --watch",
-    "package:vsce": "npx vsce package",
-    "package:full": "node scripts/package-extension.js",
-    "build:server": "bun build ./src/index.ts --compile --outfile ./dist/testeranto",
-    "compile:server": "bun compile ./src/index.ts --outfile testeranto-app --banner=\"#!/usr/bin/env bun\"",
-    "prepublishOnly:server": "bun run build",
-    "make:server": "bun run build:server && bun link",
-    "bundle": "node bundle.js",
-    "publish:ruby": "cd src/lib/rubeno/ && gem build rubeno.gemspec",
-    "launch:extension": "code --extensionDevelopmentPath=\"$PWD\""
+    "publish:ruby": "cd src/lib/rubeno/ && gem build rubeno.gemspec"
   },
   "keywords": [
     "testeranto",
@@ -196,9 +196,9 @@
   ],
   "exports": {
     "./src/vscode/defaultViews/index.ts": {
+      "types": "./src/vscode/defaultViews/index.ts",
       "import": "./src/vscode/defaultViews/index.ts",
-      "require": "./src/vscode/defaultViews/index.ts",
-      "types": "./src/vscode/defaultViews/index.ts"
+      "require": "./src/vscode/defaultViews/index.ts"
     },
     "./src/*": {
       "import": "./src/*"
@@ -239,9 +239,9 @@
       "require": "./src/WebSidecar.ts"
     },
     "./src/CoreTypes": {
+      "types": "./src/CoreTypes.d.ts",
       "import": "./src/CoreTypes.ts",
-      "require": "./src/CoreTypes.ts",
-      "types": "./src/CoreTypes.d.ts"
+      "require": "./src/CoreTypes.ts"
     },
     "./src/Types": {
       "import": "./src/Types.ts",
@@ -414,7 +414,6 @@
     "three": "^0.184.0",
     "tsc-prog": "^2.3.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
     "typescript-eslint": "^8.29.1",
     "url": "^0.11.4",
     "uuid": "^10.0.0",

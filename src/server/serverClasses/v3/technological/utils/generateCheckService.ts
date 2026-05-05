@@ -25,8 +25,8 @@ export const generateCheckService = (
   const ext = extensionMap[runtime] || 'mjs';
 
   const commandMap: Record<string, string> = {
-    node: `yarn tsx testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.${ext} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
-    web: `yarn tsx testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.${ext} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
+    node: `bun testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.${ext} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
+    web: `bun testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.${ext} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
     ruby: `ruby testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.${ext} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
     golang: `go run testeranto/bundles/${configKey}/${testName}_check_${checkIndex}.${ext} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
     rust: `./testeranto/bundles/${configKey}/${testName}_check_${checkIndex} '{"ports":[1111],"fs":"testeranto/reports/${configKey}/${testName}/"}'`,
@@ -38,16 +38,16 @@ export const generateCheckService = (
 
   const serviceConfig: any = {
     build: {
-      context: process.cwd(),
+      context: '..',
       dockerfile: `testeranto/runtimes/${runtime}/${runtime}.Dockerfile`,
     },
     container_name: `${configKey}-${cleanTestName}-check-${checkIndex}`,
     working_dir: '/workspace',
     volumes: [
-      `${process.cwd()}/src:/workspace/src`,
-      `${process.cwd()}/test:/workspace/test`,
-      `${process.cwd()}/SOUL.md:/workspace/SOUL.md`,
-      `${process.cwd()}/testeranto:/workspace/testeranto`,
+      `../src:/workspace/src`,
+      `../test:/workspace/test`,
+      `../SOUL.md:/workspace/SOUL.md`,
+      `../testeranto:/workspace/testeranto`,
     ],
     command: command,
     networks: ['allTests_network'],

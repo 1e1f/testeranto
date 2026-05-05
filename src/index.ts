@@ -5,8 +5,6 @@ const version = pkg.version;
 import readline from "readline";
 import { join } from "path";
 import fs from "fs/promises";
-import { Server_DockerCompose } from "./server/serverClasses/v3/technological/Server_DockerCompose";
-import { Server_Testeranto } from "./server/serverClasses/v3/technological/Server_Testeranto";
 
 const init = async () => {
   console.log("initializing the testeranto folder");
@@ -41,6 +39,7 @@ const mode = process.argv[2] as "once" | "dev" | "-v" | "init";
 
   console.log(`Press 'q' to initiate a graceful shutdown. Press 'CTRL + c' to quit forcefully.`);
 
+  const { Server_Testeranto } = await import("./server/serverClasses/v3/technological/Server_Testeranto");
   const config = (await import(process.cwd() + '/testeranto/testeranto.ts')).default;
   const server = new Server_Testeranto(config, mode);
 

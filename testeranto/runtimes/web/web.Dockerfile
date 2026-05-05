@@ -5,21 +5,19 @@ WORKDIR /workspace
 
 ENV ENV=web
 
-# Install build dependencies
 RUN apk add --no-cache python3 libxml2-utils make build-base g++ git pkgconfig
 RUN ln -sf python3 /usr/bin/python
 ENV npm_config_python=/usr/bin/python3
 ENV PYTHON=/usr/bin/python3
 
 COPY ./tsconfig*.json ./
-COPY ./.yarnrc.yml ./
 COPY ./eslint.config.mjs ./
 COPY package.json /workspace
+COPY bun.lockb /workspace
 
-RUN yarn install
+RUN npm install -g bun
+RUN bun install
 
-# Expose port 8000 for web runtime
 EXPOSE 8000
 
-# Default command
 CMD ["node"]

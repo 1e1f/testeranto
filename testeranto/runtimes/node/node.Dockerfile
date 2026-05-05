@@ -10,13 +10,11 @@ ENV PYTHON=/usr/bin/python3
 ENV ENV=node
 
 COPY ./tsconfig*.json ./
-COPY ./.yarnrc.yml ./
 COPY ./eslint.config.mjs ./
-COPY .eslintrc.js ./
 COPY package.json /workspace
+COPY bun.lockb /workspace
 
-RUN yarn install
+RUN npm install -g bun
+RUN bun install
 
-# Default command
 CMD ["node"]
-

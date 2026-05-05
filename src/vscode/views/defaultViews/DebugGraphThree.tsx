@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { ForceGraph3D } from 'react-force-graph';
+import ForceGraph3D from 'react-force-graph-3d';
 import type { GraphData } from '../../../graph';
 import { convertGraphData } from './DebugGraphUtils';
 import type { DebugGraphConfig } from './DebugGraphView';
