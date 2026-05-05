@@ -15,8 +15,8 @@ COPY ./eslint.config.mjs ./
 COPY package.json /workspace
 COPY bun.lockb /workspace
 
+RUN npm install --legacy-peer-deps
 RUN npm install -g bun
-RUN bun install
 
 EXPOSE 8000
 

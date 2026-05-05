@@ -7,10 +7,10 @@ services:
       MODE: dev
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/dist:/workspace/dist"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx /workspace/testeranto/node_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/node/node.mjs '{\"name\":\"nodetests\",\"tests\":[\"src/lib/tiposkripto/tests/abstractBase.test/index.ts\",\"src/lib/tiposkripto/tests/calculator/Calculator.test.node.ts\",\"src/lib/tiposkripto/tests/circle/Circle.test.ts\",\"src/lib/tiposkripto/tests/Rectangle/Rectangle.test.ts\"],\"outputs\":[]}'"
+      - "../src:/workspace/src"
+      - "../dist:/workspace/dist"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun /workspace/testeranto/node_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/node/node.mjs '{\"name\":\"nodetests\",\"tests\":[\"src/lib/tiposkripto/tests/abstractBase.test/index.ts\",\"src/lib/tiposkripto/tests/calculator/Calculator.test.node.ts\",\"src/lib/tiposkripto/tests/circle/Circle.test.ts\",\"src/lib/tiposkripto/tests/Rectangle/Rectangle.test.ts\"],\"outputs\":[]}'"
     networks:
       - allTests_network
     restart: no
@@ -25,10 +25,10 @@ services:
       MODE: dev
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/dist:/workspace/dist"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx /workspace/testeranto/web_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/web/web.mjs '{\"name\":\"webtests\",\"tests\":[\"src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts\",\"src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts\"],\"outputs\":[]}'"
+      - "../src:/workspace/src"
+      - "../dist:/workspace/dist"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun /workspace/testeranto/web_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/web/web.mjs '{\"name\":\"webtests\",\"tests\":[\"src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts\",\"src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts\"],\"outputs\":[]}'"
     networks:
       - allTests_network
     restart: no
@@ -43,10 +43,10 @@ services:
       MODE: dev
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/dist:/workspace/dist"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx /workspace/testeranto/node_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/node/node.mjs '{\"name\":\"javatests\",\"tests\":[\"src/java/test/java/com/example/calculator/CalculatorTest.java\"],\"outputs\":[\"src/lib/kafe/examples/calculator/Calculator.java\"]}'"
+      - "../src:/workspace/src"
+      - "../dist:/workspace/dist"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun /workspace/testeranto/node_runtime.ts /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/node/node.mjs '{\"name\":\"javatests\",\"tests\":[\"src/java/test/java/com/example/calculator/CalculatorTest.java\"],\"outputs\":[\"src/lib/kafe/examples/calculator/Calculator.java\"]}'"
     networks:
       - allTests_network
     restart: no
@@ -61,9 +61,9 @@ services:
       MODE: dev
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/dist:/workspace/dist"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../dist:/workspace/dist"
+      - "../testeranto:/workspace/testeranto"
     command: "ruby /workspace/testeranto/ruby_runtime.rb /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/ruby/ruby.rb '{\"name\":\"rubytests\",\"tests\":[\"src/lib/rubeno/examples/calculator/Calculator.test.rb\"],\"outputs\":[\"test_output\",\"testeranto/reports/rubytests\"]}'"
     networks:
       - allTests_network
@@ -79,9 +79,9 @@ services:
       MODE: dev
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/dist:/workspace/dist"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../dist:/workspace/dist"
+      - "../testeranto:/workspace/testeranto"
     command: "python3 /workspace/testeranto/python_runtime.py /workspace/testeranto/testeranto.ts /workspace/testeranto/runtimes/python/python.mjs '{\"name\":\"pythontests\",\"tests\":[\"src/lib/pitono/examples/calculator_test.py\"],\"outputs\":[\"testeranto/reports/pythontests\"]}'"
     networks:
       - allTests_network
@@ -91,16 +91,16 @@ services:
       host.docker.internal: "host-gateway"
   nodetests-src_lib_tiposkripto_tests_abstractbase-test_index-ts-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/node/node.Dockerfile
     container_name: "nodetests-src_lib_tiposkripto_tests_abstractbase-test_index-ts-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/nodetests/src/lib/tiposkripto/tests/abstractBase.test/index.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/abstractBase.test/index.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/nodetests/src/lib/tiposkripto/tests/abstractBase.test/index.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/abstractBase.test/index.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -108,16 +108,16 @@ services:
       host.docker.internal: "host-gateway"
   nodetests-src_lib_tiposkripto_tests_calculator_calculator-test-node-ts-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/node/node.Dockerfile
     container_name: "nodetests-src_lib_tiposkripto_tests_calculator_calculator-test-node-ts-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/nodetests/src/lib/tiposkripto/tests/calculator/Calculator.test.node.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/calculator/Calculator.test.node.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/nodetests/src/lib/tiposkripto/tests/calculator/Calculator.test.node.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/calculator/Calculator.test.node.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -125,16 +125,16 @@ services:
       host.docker.internal: "host-gateway"
   nodetests-src_lib_tiposkripto_tests_circle_circle-test-ts-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/node/node.Dockerfile
     container_name: "nodetests-src_lib_tiposkripto_tests_circle_circle-test-ts-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/nodetests/src/lib/tiposkripto/tests/circle/Circle.test.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/circle/Circle.test.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/nodetests/src/lib/tiposkripto/tests/circle/Circle.test.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/circle/Circle.test.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -142,16 +142,16 @@ services:
       host.docker.internal: "host-gateway"
   nodetests-src_lib_tiposkripto_tests_rectangle_rectangle-test-ts-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/node/node.Dockerfile
     container_name: "nodetests-src_lib_tiposkripto_tests_rectangle_rectangle-test-ts-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/nodetests/src/lib/tiposkripto/tests/Rectangle/Rectangle.test.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/Rectangle/Rectangle.test.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/nodetests/src/lib/tiposkripto/tests/Rectangle/Rectangle.test.mjs '{\"name\":\"node-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/nodetests/src/lib/tiposkripto/tests/Rectangle/Rectangle.test.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -159,16 +159,16 @@ services:
       host.docker.internal: "host-gateway"
   webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-ts-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/web/web.Dockerfile
     container_name: "webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-ts-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx /workspace/testeranto/web_hoist.ts testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.mjs '{\"name\":\"web-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun /workspace/testeranto/web_hoist.ts testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.mjs '{\"name\":\"web-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -176,16 +176,16 @@ services:
       host.docker.internal: "host-gateway"
   webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-ts-check-0:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/web/web.Dockerfile
     container_name: "webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-ts-check-0"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts_check_0.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts/\"}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts_check_0.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts/\"}'"
     networks:
       - allTests_network
     restart: no
@@ -193,16 +193,16 @@ services:
       host.docker.internal: "host-gateway"
   webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-ts-check-1:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/web/web.Dockerfile
     container_name: "webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-ts-check-1"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts_check_1.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts/\"}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts_check_1.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.ts/\"}'"
     networks:
       - allTests_network
     restart: no
@@ -210,16 +210,16 @@ services:
       host.docker.internal: "host-gateway"
   webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-react-ts-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/web/web.Dockerfile
     container_name: "webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-react-ts-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx /workspace/testeranto/web_hoist.ts testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.mjs '{\"name\":\"web-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun /workspace/testeranto/web_hoist.ts testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.mjs '{\"name\":\"web-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.mjs/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -227,16 +227,16 @@ services:
       host.docker.internal: "host-gateway"
   webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-react-ts-check-0:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/web/web.Dockerfile
     container_name: "webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-react-ts-check-0"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts_check_0.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts/\"}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts_check_0.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts/\"}'"
     networks:
       - allTests_network
     restart: no
@@ -244,16 +244,16 @@ services:
       host.docker.internal: "host-gateway"
   webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-react-ts-check-1:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/web/web.Dockerfile
     container_name: "webtests-src_lib_tiposkripto_tests_calculator_calculator-test-web-react-ts-check-1"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts_check_1.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts/\"}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts_check_1.mjs '{\"ports\":[1111],\"fs\":\"testeranto/reports/webtests/src/lib/tiposkripto/tests/calculator/Calculator.test.web.react.ts/\"}'"
     networks:
       - allTests_network
     restart: no
@@ -261,16 +261,16 @@ services:
       host.docker.internal: "host-gateway"
   javatests-src_java_test_java_com_example_calculator_calculatortest-java-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/java/java.Dockerfile
     container_name: "javatests-src_java_test_java_com_example_calculator_calculatortest-java-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java '{\"name\":\"java-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java '{\"name\":\"java-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
     restart: no
@@ -278,16 +278,16 @@ services:
       host.docker.internal: "host-gateway"
   javatests-src_java_test_java_com_example_calculator_calculatortest-java-check-0:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/java/java.Dockerfile
     container_name: "javatests-src_java_test_java_com_example_calculator_calculatortest-java-check-0"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java_check_0.java '{\"ports\":[1111],\"fs\":\"testeranto/reports/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java/\"}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java_check_0.java '{\"ports\":[1111],\"fs\":\"testeranto/reports/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java/\"}'"
     networks:
       - allTests_network
     restart: no
@@ -295,16 +295,16 @@ services:
       host.docker.internal: "host-gateway"
   javatests-src_java_test_java_com_example_calculator_calculatortest-java-check-1:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/java/java.Dockerfile
     container_name: "javatests-src_java_test_java_com_example_calculator_calculatortest-java-check-1"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
-    command: "yarn tsx testeranto/bundles/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java_check_1.java '{\"ports\":[1111],\"fs\":\"testeranto/reports/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java/\"}'"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
+    command: "bun testeranto/bundles/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java_check_1.java '{\"ports\":[1111],\"fs\":\"testeranto/reports/javatests/src/java/test/java/com/example/calculator/CalculatorTest.java/\"}'"
     networks:
       - allTests_network
     restart: no
@@ -312,15 +312,15 @@ services:
       host.docker.internal: "host-gateway"
   rubytests-src_lib_rubeno_examples_calculator_calculator-test-rb-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/ruby/ruby.Dockerfile
     container_name: "rubytests-src_lib_rubeno_examples_calculator_calculator-test-rb-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
     command: "ruby testeranto/bundles/rubytests/src/lib/rubeno/examples/calculator/Calculator.test.rb '{\"name\":\"ruby-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/rubytests/src/lib/rubeno/examples/calculator/Calculator.test.rb/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
@@ -329,15 +329,15 @@ services:
       host.docker.internal: "host-gateway"
   pythontests-src_lib_pitono_examples_calculator_test-py-bdd:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/python/python.Dockerfile
     container_name: "pythontests-src_lib_pitono_examples_calculator_test-py-bdd"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
     command: "python3 testeranto/bundles/pythontests/src/lib/pitono/examples/calculator_test.py '{\"name\":\"python-test\",\"ports\":[1111],\"fs\":\"testeranto/reports/pythontests/src/lib/pitono/examples/calculator_test.py/\",\"timeout\":30000,\"retries\":0,\"environment\":{}}'"
     networks:
       - allTests_network
@@ -346,15 +346,15 @@ services:
       host.docker.internal: "host-gateway"
   pythontests-src_lib_pitono_examples_calculator_test-py-check-0:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/python/python.Dockerfile
     container_name: "pythontests-src_lib_pitono_examples_calculator_test-py-check-0"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
     command: "python3 testeranto/bundles/pythontests/src/lib/pitono/examples/calculator_test.py_check_0.py '{\"ports\":[1111],\"fs\":\"testeranto/reports/pythontests/src/lib/pitono/examples/calculator_test.py/\"}'"
     networks:
       - allTests_network
@@ -363,15 +363,15 @@ services:
       host.docker.internal: "host-gateway"
   pythontests-src_lib_pitono_examples_calculator_test-py-check-1:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/python/python.Dockerfile
     container_name: "pythontests-src_lib_pitono_examples_calculator_test-py-check-1"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
     command: "python3 testeranto/bundles/pythontests/src/lib/pitono/examples/calculator_test.py_check_1.py '{\"ports\":[1111],\"fs\":\"testeranto/reports/pythontests/src/lib/pitono/examples/calculator_test.py/\"}'"
     networks:
       - allTests_network
@@ -380,15 +380,15 @@ services:
       host.docker.internal: "host-gateway"
   pythontests-src_lib_pitono_examples_calculator_test-py-check-2:
     build:
-      context: /Users/leif/testeranto
+      context: ..
       dockerfile: testeranto/runtimes/python/python.Dockerfile
     container_name: "pythontests-src_lib_pitono_examples_calculator_test-py-check-2"
     working_dir: /workspace
     volumes:
-      - "/Users/leif/testeranto/src:/workspace/src"
-      - "/Users/leif/testeranto/test:/workspace/test"
-      - "/Users/leif/testeranto/SOUL.md:/workspace/SOUL.md"
-      - "/Users/leif/testeranto/testeranto:/workspace/testeranto"
+      - "../src:/workspace/src"
+      - "../test:/workspace/test"
+      - "../SOUL.md:/workspace/SOUL.md"
+      - "../testeranto:/workspace/testeranto"
     command: "python3 testeranto/bundles/pythontests/src/lib/pitono/examples/calculator_test.py_check_2.py '{\"ports\":[1111],\"fs\":\"testeranto/reports/pythontests/src/lib/pitono/examples/calculator_test.py/\"}'"
     networks:
       - allTests_network
