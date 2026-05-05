@@ -38,3 +38,4 @@ dist/testeranto
 testeranto/rust_builder/target
 src/lib/kafe/target
 testeranto/bundles
+testeranto/views/*.bundle.js
